@@ -15,5 +15,6 @@ export default function Home() {
     });
     // fetchData();
   }, []);
+
   return <div>{notes && <Notes notes={notes} />}</div>;
 }
