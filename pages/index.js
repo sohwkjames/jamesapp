@@ -5,6 +5,7 @@ import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import noteService from "../services/notes";
+import Layout from "../components/layout/Layout";
 
 export default function Home() {
   const [notes, setNotes] = useState();
@@ -16,5 +17,14 @@ export default function Home() {
     // fetchData();
   }, []);
 
-  return <div>{notes && <Notes notes={notes} />}</div>;
+  return (
+    <div>
+      {notes && <Notes notes={notes} />}
+      <div>Homepage</div>
+    </div>
+  );
 }
+
+Home.getLayout = function getLayout(page) {
+  return <Layout>{page}</Layout>;
+};
