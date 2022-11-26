@@ -18,9 +18,12 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div> 
       {notes && <Notes notes={notes} />}
-      <div>Homepage</div>
+      <div className="p-2">
+        <div className="border-2 m-2 p-2 border-black">Homepage</div>
+        <div className="border-2 m-2 p-2 border-black">Homepage</div>
+      </div>
     </div>
   );
 }
