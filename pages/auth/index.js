@@ -7,15 +7,25 @@ import Card from "../../components/ui/Card";
 import TightContainer from "../../components/layout/TightContainer";
 
 export default function Auth() {
+  const [loginSelected, setLoginSelected] = useState(true);
+
   const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
+    register: loginRegister,
+    handleSubmit: handleLoginSubmit,
+    watch: watchLogin,
+    control: loginControl,
+    formState: { loginErrors },
   } = useForm();
 
-  const onSubmit = (data) => console.log("data ->", data);
+  const {
+    register: signupRegister,
+    handleSubmit: handleRegisterSubmit,
+    watch: watchRegister,
+    control: registerControl,
+    formState: { registerErrors },
+  } = useForm();
+
+  const onSubmitLogin = (data) => console.log("Login data ->", data);
 
   return (
     <div className="h-screen bg-slate-100	">
@@ -26,23 +36,42 @@ export default function Auth() {
           </div>
 
           <div className="p-4 m-4 pb-10 bg-white rounded-md shadow-md">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex flex-col space-y-2">
-                <FormInputText
-                  control={control}
-                  name="username"
-                  label="Username"
-                />
-                <FormInputText
-                  control={control}
-                  name="password"
-                  label="Password"
-                />
-                <Button variant="outlined" type="submit">
-                  Login
-                </Button>
-              </div>
-            </form>
+            <div className="my-2 flex justify-around">
+              <p
+                onClick={() => setLoginSelected(true)}
+                className={loginSelected ? styles.loginSelected : styles.login}
+              >
+                Login
+              </p>
+              <p
+                onClick={() => setLoginSelected(false)}
+                className={!loginSelected ? styles.loginSelected : styles.login}
+              >
+                Signup
+              </p>
+
+              {/* <p onClick={() => setLoginSelected(false)}>Signup</p> */}
+            </div>
+            <div className="my-8">
+              <form onSubmit={handleLoginSubmit(onSubmitLogin)}>
+                <div className="flex flex-col space-y-2">
+                  <FormInputText
+                    control={loginControl}
+                    name="username"
+                    label="Username"
+                    className="mb-2"
+                  />
+                  <FormInputText
+                    control={loginControl}
+                    name="password"
+                    label="Password"
+                  />
+                  <Button variant="outlined" type="submit">
+                    Login
+                  </Button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -4,3 +4,29 @@
   align-items: center;
   justify-content: center;
 }
+
+.login {
+  padding: 2px;
+  border: 2px solid transparent;
+}
+
+.loginSelected {
+  padding: 2px;
+  border: 2px solid transparent;
+  border-bottom: 2px solid rgba(0, 0, 0, 1);
+}
+
+.login:hover {
+  cursor: pointer;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  animation: glow 1.5s;
+}
+
+@keyframes glow {
+  0% {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    border-bottom: 2px solid rgba(0, 0, 0, 1);
+  }
+}
