@@ -4,24 +4,18 @@ import Notes from "../components/Notes";
 import styles from "../styles/Home.module.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import noteService from "../services/notes";
+import ticketService from "../services/tickets";
 import Layout from "../components/layout/Layout";
+import { useQueryClient, useQuery } from "react-query";
 
 export default function Home() {
-  const [notes, setNotes] = useState();
-  useEffect(() => {
-    noteService.getAll().then((data) => {
-      console.log(data);
-      setNotes(data);
-    });
-    // fetchData();
-  }, []);
+  const { data, isLoading } = useQuery("tickets", ticketService.getAll);
+
+  console.log("data", data);
 
   return (
-    <div> 
-      {notes && <Notes notes={notes} />}
+    <div>
       <div className="p-2">
-        <div className="border-2 m-2 p-2 border-black">Homepage</div>
         <div className="border-2 m-2 p-2 border-black">Homepage</div>
       </div>
     </div>

@@ -5,10 +5,16 @@ import { Paper, TextField, Button } from "@mui/material";
 import { FormInputText } from "../../components/form/FormInputText";
 import Card from "../../components/ui/Card";
 import TightContainer from "../../components/layout/TightContainer";
+import loginService from "../../services/login";
+import { useMutation } from "react-query";
+import { useCookies } from "react-cookie";
 
 export default function Auth() {
   const [loginSelected, setLoginSelected] = useState(true);
-
+  const [cookies, setCookies, removeCookie] = useCookies();
+  const { mutate, isError, error, data } = useMutation({
+    mutationFn: (formData) => loginService.login(formData),
+  });
   const {
     register: loginRegister,
     handleSubmit: handleLoginSubmit,
@@ -25,7 +31,23 @@ export default function Auth() {
     formState: { registerErrors },
   } = useForm();
 
-  const onSubmitLogin = (data) => console.log("Login data ->", data);
+  const onSubmitLogin = async (formData) => {
+    mutate(formData, {
+      onSuccess: (data) => {
+        console.log("Login success, data->", data);
+        // setCookies("token", data.token); // your token
+        // setCookies("name", data.name); // optional data
+      },
+    });
+  };
+
+  const handleSuccessfulLogin = () => {
+    // Get JWT value
+    // Set context
+    // Redirect to homepage
+  };
+
+  console.log("data->", data);
 
   return (
     <div className="h-screen bg-slate-100	">
@@ -52,19 +74,22 @@ export default function Auth() {
 
               {/* <p onClick={() => setLoginSelected(false)}>Signup</p> */}
             </div>
-            <div className="my-8">
+            {isError && <p className="py-4">Incorrect username or password.</p>}
+            <div className="my-4">
               <form onSubmit={handleLoginSubmit(onSubmitLogin)}>
                 <div className="flex flex-col space-y-2">
                   <FormInputText
                     control={loginControl}
                     name="username"
                     label="Username"
-                    className="mb-2"
+                    error={isError}
                   />
                   <FormInputText
                     control={loginControl}
                     name="password"
                     label="Password"
+                    type="password"
+                    error={isError}
                   />
                   <Button variant="outlined" type="submit">
                     Login
