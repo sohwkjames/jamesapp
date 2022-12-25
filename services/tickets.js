@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/notes`;
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/tickets`;
 
 const getAll = () => {
   const request = axios.get(baseUrl);

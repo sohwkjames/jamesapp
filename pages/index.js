@@ -1,20 +1,31 @@
-import Head from "next/head";
-import Image from "next/image";
-import Notes from "../components/Notes";
-import styles from "../styles/Home.module.css";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import noteService from "../services/notes";
-
+import ticketService from "../services/tickets";
+import Layout from "../components/layout/Layout";
+import { useAuth } from "../context/AuthContext";
+import TightContainer from "../components/layout/TightContainer";
+import Countdown from "../components/countdown/Countdown";
 export default function Home() {
-  const [notes, setNotes] = useState();
-  useEffect(() => {
-    noteService.getAll().then((data) => {
-      console.log(data);
-      setNotes(data);
-    });
-    // fetchData();
-  }, []);
+  const authContext = useAuth();
+  console.log("authContext", authContext);
+  // const authDispatchContext = useAuthDispatch();
 
-  return <div>{notes && <Notes notes={notes} />}</div>;
+  // Check if cookie exist
+
+  return (
+    <div>
+      <div className="p-2">
+        <div className="border-2 m-2 p-2 border-black">
+          <Countdown></Countdown>
+        </div>
+      </div>
+    </div>
+  );
 }
+
+Home.getLayout = function getLayout(page) {
+  return (
+    <Layout>
+      <TightContainer>{page}</TightContainer>
+    </Layout>
+  );
+};
