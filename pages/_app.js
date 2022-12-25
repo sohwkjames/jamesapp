@@ -6,22 +6,19 @@ import {
   useQueryClient,
   QueryClient,
 } from "react-query";
+import { AuthProvider } from "../context/AuthContext";
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   const getLayout = Component.getLayout || ((page) => page);
 
-  // return (
-  //   <Layout>
-  //     <Component {...pageProps} />
-  //   </Layout>
-  // );
-
-  return getLayout(
-    <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />{" "}
-    </QueryClientProvider>
+  return (
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        {getLayout(<Component {...pageProps} />)}
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 

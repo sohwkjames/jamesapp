@@ -1,27 +1,31 @@
-import Head from "next/head";
-import Image from "next/image";
-import Notes from "../components/Notes";
-import styles from "../styles/Home.module.css";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import ticketService from "../services/tickets";
 import Layout from "../components/layout/Layout";
-import { useQueryClient, useQuery } from "react-query";
-
+import { useAuth } from "../context/AuthContext";
+import TightContainer from "../components/layout/TightContainer";
+import Countdown from "../components/countdown/Countdown";
 export default function Home() {
-  const { data, isLoading } = useQuery("tickets", ticketService.getAll);
+  const authContext = useAuth();
+  console.log("authContext", authContext);
+  // const authDispatchContext = useAuthDispatch();
 
-  console.log("data", data);
+  // Check if cookie exist
 
   return (
     <div>
       <div className="p-2">
-        <div className="border-2 m-2 p-2 border-black">Homepage</div>
+        <div className="border-2 m-2 p-2 border-black">
+          <Countdown></Countdown>
+        </div>
       </div>
     </div>
   );
 }
 
 Home.getLayout = function getLayout(page) {
-  return <Layout>{page}</Layout>;
+  return (
+    <Layout>
+      <TightContainer>{page}</TightContainer>
+    </Layout>
+  );
 };
