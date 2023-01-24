@@ -8,6 +8,7 @@ export default function Menu({ stats, handleSelectStat }) {
       {stats &&
         stats.map((stat) => (
           <StatButton
+            key={Math.random()}
             isSelected={stat.selected}
             title={stat.name}
             handleSelectStat={handleSelectStat}
