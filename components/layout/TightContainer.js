@@ -1,5 +1,9 @@
 import Navbar from "./Navbar";
 
 export default function TightContainer(props) {
-  return <div className="sm:max-w-3xl sm:mx-auto">{props.children}</div>;
+  return (
+    <div className="sm:max-w-2xl sm:mx-auto border-2 border-blue">
+      {props.children}
+    </div>
+  );
 }
