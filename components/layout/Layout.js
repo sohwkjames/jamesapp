@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { useAuth, useAuthDispatch } from "../../context/AuthContext";
+import { useCookies } from "react-cookie";
+import TightContainer from "./TightContainer";
 
 export default function Layout(props) {
   const authContext = useAuth();
+  const [cookies, setCookie, removeCookie] = useCookies([""]);
   const { username, isAuthenticated } = authContext;
-  console.log("Layout username:", username, isAuthenticated);
 
-  // This undefined check is needed to 
+  // This undefined check is needed to
   // prevent the "New User" flashing for half a second.
   let nameToDisplay;
   if (isAuthenticated?.valueOf() === undefined) {
@@ -19,10 +19,15 @@ export default function Layout(props) {
   }
 
   return (
-    <div className="h-screen bg-white">
+    <div className="h-screen bg-green-900 text-white">
       {/* <Navbar /> */}
-      <nav className="border-1 border-black -p2 ">{nameToDisplay}</nav>
-      <div>{props.children}</div>
+      <TightContainer>
+        <nav className="p-2 flex justify-between">
+          <div className="font-medium">{nameToDisplay}</div>
+          <div>Sign out</div>
+        </nav>
+        <div>{props.children}</div>
+      </TightContainer>
     </div>
   );
 }

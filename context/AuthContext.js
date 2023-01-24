@@ -17,10 +17,10 @@ export function AuthProvider({ children }) {
 
   // On page reload, need to check cookies for existing auth.
   useEffect(() => {
-    const token = cookies.token;
+    // const token = cookies.token;
 
     // no token.
-    if (token === null || token === undefined) {
+    if (cookies.token === null || cookies.token === undefined) {
       setUsername(null);
       setIsAuthenticated(false);
       setIsLoading(false);
