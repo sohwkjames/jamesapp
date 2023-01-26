@@ -32,7 +32,6 @@ export function AuthProvider({ children }) {
   }, []);
 
   function handleLoginSuccess(data) {
-    console.log("in handleLoginSuccess");
     setIsAuthenticated(true);
     setUsername(data.username);
 

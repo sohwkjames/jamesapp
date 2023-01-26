@@ -7,20 +7,23 @@ import Countdown from "../components/countdown/Countdown";
 import Menu from "../components/home/Menu";
 
 const defaultStats = [
-  { name: "Workout", selected: false },
-  { name: "Study", selected: false },
-  { name: "Meditate", selected: false },
+  { name: "Workout", selected: true, locked: false, svgName: "exercise" },
+  { name: "Study", selected: false, locked: false, svgName: "study" },
+  { name: "Meditate", selected: false, locked: false, svgName: "meditate" },
 ];
 
 export default function Home() {
-  const authContext = useAuth();
   const [showMenu, setShowMenu] = useState(true);
+  const [locked, setLocked] = useState(false);
   const [stats, setStats] = useState(defaultStats);
 
   function handleSelectStat(statName) {
+    if (locked) {
+      return;
+    }
     const newStats = stats.map((stat) => {
       return {
-        name: stat.name,
+        ...stat,
         selected: stat.name === statName ? true : false,
       };
     });
@@ -37,6 +40,21 @@ export default function Home() {
     return result;
   }
 
+  function resetLockState() {
+    setLocked(false);
+  }
+
+  function handleLockStat(statName) {
+    const newStats = stats.map((stat) => {
+      return {
+        ...stat,
+        locked: stat.selected ? true : false,
+      };
+    });
+    setStats(newStats);
+    setLocked(true);
+  }
+
   return (
     <div>
       <div className="max-w-lg m-auto p-2">
@@ -45,11 +63,19 @@ export default function Home() {
           style={{ background: "rgba(255,255,255,0.1)" }}
         >
           {showMenu ? (
-            <Menu stats={stats} handleSelectStat={handleSelectStat} />
+            <Menu
+              stats={stats}
+              handleSelectStat={handleSelectStat}
+              locked={locked}
+            />
           ) : (
             <></>
           )}
-          <Countdown selectedStat={getSelectedStat} />
+          <Countdown
+            selectedStat={getSelectedStat}
+            handleLockStat={handleLockStat}
+            resetLockState={resetLockState}
+          />
         </div>
       </div>
     </div>

@@ -7,10 +7,11 @@ import { useState } from "react";
 import Card from "../ui/Card";
 import StartPauseButton from "./StartPauseButton";
 import TwoStateButton from "../ui/TwoStateButton";
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
-export default function Countdown({ selectedStat }) {
+export default function Countdown({ selectedStat, handleLockStat, reset }) {
   const { secondsRemaining, togglePause, paused, progress, resetTimer } =
-    useCountdown(1500);
+    useCountdown(1420);
   // 1500 seconds -> 25 mins
 
   const [cookies, setCookie, removeCookie] = useCookies([""]);
@@ -19,23 +20,31 @@ export default function Countdown({ selectedStat }) {
     tomatoService.create(cookies?.token, { selectedStat: selectedStat });
   }
 
+  function handleStartPress() {
+    togglePause();
+    handleLockStat();
+  }
+
+  function handleReset() {}
+
   return (
-    <div className=" border border-white">
-      <div className="flex justify-center">
+    <div className="">
+      <div className="flex justify-center py-8">
         <CountdownBar secondsRemaining={secondsRemaining} progress={progress} />
         {/* Hi there */}
       </div>
-      {/* <Button onClick={handleCreateTomato}>Test send tomato</Button> */}
       <div className="flex justify-center">
         <TwoStateButton
-          onClick={togglePause}
+          onClick={handleStartPress}
           isPressed={paused}
           pressedText="START"
           unpressedText="PAUSE"
           style={{ height: "36px" }}
         />
+
         {/* <StartPauseButton paused={paused} togglePause={togglePause} /> */}
       </div>
+      <RestartAltIcon onClick={handleReset} className="flex-end" />
     </div>
   );
 }
