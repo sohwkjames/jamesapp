@@ -39,7 +39,6 @@ export default function Auth() {
   const onSubmitLogin = async (formData) => {
     mutate(formData, {
       onSuccess: (data) => {
-        console.log("onSubmitLogin, data", data);
         handleLoginSuccess(data);
         // dispatch({ action: "set", username: data.username, token: data.token });
         router.push("/");
@@ -48,14 +47,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="py-20 grid gap-4 grid-cols-1">
-      {/* <div className="border-blue-100 border-4 grid gap-4 grid-cols-1 sm:grid-cols-2 sm:max-w-3xl sm:mx-auto"> */}
-      {/* <div className="px-4 my-4">
-        <h1 className="text-3xl">Welcome!</h1>
-      </div> */}
-      {/* <div className="flex items-center">
-        <img src="/images/undraw_cat_re_hl2i.svg"></img>
-      </div> */}
+    <div className="py-20 grid gap-4 grid-cols-1 text-black">
       <div className="p-4 m-4 pb-10 bg-white rounded-md shadow-md">
         <div className="my-2 flex justify-around">
           <p
@@ -102,9 +94,5 @@ export default function Auth() {
 }
 
 Auth.getLayout = function getLayout(page) {
-  return (
-    <Layout>
-      <TightContainer>{page}</TightContainer>
-    </Layout>
-  );
+  return <TightContainer>{page}</TightContainer>;
 };

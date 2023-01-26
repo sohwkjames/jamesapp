@@ -7,10 +7,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'mint': "#A2E3C4",
-        'darkgreen': "#254D32",
-        'white': "#ffffff",
-        'offblack': "#181D27",
+        mint: "#A2E3C4",
+        darkgreen: "#254D32",
+        white: "#ffffff",
+        offblack: "#181D27",
+      },
+      screens: {
+        xs: "480px",
       },
     },
   },

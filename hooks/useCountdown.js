@@ -9,18 +9,18 @@ export default function useCountdown(
   // Returns remaining time in seconds.
   // onCountdownComplete is called when countdown is completed.
 
+  const [initialTime, setInitialTime] = useState(seconds);
   const [secondsRemaining, setSecondsRemaining] = useState(seconds);
   const [paused, setPaused] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
+  const [isReset, setIsReset] = useState(false);
 
-  // console.log('in useCountdown, seconds / secondsRemaining', seconds / secondsRemaining)
   function togglePause() {
     setPaused(!paused);
   }
 
   function resetTimer() {
-    // console.log("calling resetTimer, seconds:", seconds);
-    setSecondsRemaining(seconds);
+    setSecondsRemaining(initialTime);
   }
 
   // Returns a value from 0 to 100.
@@ -29,6 +29,14 @@ export default function useCountdown(
   // }
 
   const progress = (secondsRemaining / seconds) * 100;
+
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setSecondsRemaining(secondsRemaining - 1);
+  //   }, 1000);
+
+  //   return () => clearInterval(intervalId);
+  // }, [secondsRemaining]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {

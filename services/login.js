@@ -8,7 +8,6 @@ async function login(formData) {
     password: formData.password,
   });
 
-  console.log("in loginservice, request is", request);
   // Let's return a Promise that resolves the data for us.
   return request.then((response) => response.data);
 }

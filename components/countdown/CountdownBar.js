@@ -6,5 +6,17 @@ import {
 import "react-circular-progressbar/dist/styles.css";
 
 export default function CountdownBar({ progress, secondsRemaining }) {
-  return <h1 className="text-2xl">{secondsRemaining}</h1>;
+  let secondsDisplay = secondsRemaining % 60;
+  if (secondsDisplay < 10) {
+    secondsDisplay = "0" + secondsDisplay;
+  }
+  const minuteDisplay = parseInt(secondsRemaining / 60);
+
+  return (
+    <div>
+      <h1 className="text-7xl">
+        {minuteDisplay}:{secondsDisplay}
+      </h1>
+    </div>
+  );
 }
