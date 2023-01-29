@@ -19,13 +19,12 @@ export default function Layout(props) {
   const [cookies, setCookie, removeCookie] = useCookies([""]);
   const { username, isAuthenticated } = authContext;
 
+  console.log("username", username);
   // This undefined check is needed to
   // prevent the "New User" flashing for half a second.
   let nameToDisplay;
-  if (isAuthenticated?.valueOf() === undefined) {
+  if (isAuthenticated === false) {
     nameToDisplay = "";
-  } else if (isAuthenticated === false) {
-    nameToDisplay = "Sign In";
   } else {
     nameToDisplay = username;
   }
@@ -37,6 +36,8 @@ export default function Layout(props) {
         <nav className="p-2 flex justify-between">
           <div className="font-bold text-xl">Focusr</div>
           <div>
+            {nameToDisplay}
+
             {MenuData.map((menu) => (
               <MenuButton
                 key={Math.random()}
