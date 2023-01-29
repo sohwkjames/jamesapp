@@ -10,7 +10,7 @@ export default function TwoStateButton({
   return (
     <div
       onClick={onClick}
-      className={`w-24 text-2xl bg-white text-black flex justify-center rounded-sm h-8`}
+      className={`w-24 text-2xl bg-white text-black flex justify-center rounded-sm h-8 cursor-pointer`}
       style={{
         boxShadow: isPressed ? "rgb(235 235 235) 0px 6px 0px" : "",
         transform: isPressed ? "" : "translateY(6px)",
