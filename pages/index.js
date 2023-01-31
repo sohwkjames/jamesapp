@@ -7,15 +7,34 @@ import Countdown from "../components/countdown/Countdown";
 import Menu from "../components/home/Menu";
 
 const defaultStats = [
-  { name: "Workout", selected: true, locked: false, svgName: "exercise" },
-  { name: "Study", selected: false, locked: false, svgName: "study" },
-  { name: "Meditate", selected: false, locked: false, svgName: "meditate" },
+  {
+    name: "Workout",
+    selected: true,
+    locked: false,
+    disabled: false,
+    svgName: "exercise",
+  },
+  {
+    name: "Study",
+    selected: false,
+    locked: false,
+    disabled: false,
+    svgName: "study",
+  },
+  {
+    name: "Meditate",
+    selected: false,
+    locked: false,
+    disabled: false,
+    svgName: "meditate",
+  },
 ];
 
 export default function Home() {
   const [showMenu, setShowMenu] = useState(true);
   const [locked, setLocked] = useState(false);
   const [stats, setStats] = useState(defaultStats);
+  const [selectedStat, setSelectedStat] = useState({});
 
   function handleSelectStat(statName) {
     if (locked) {
@@ -49,6 +68,7 @@ export default function Home() {
       return {
         ...stat,
         locked: stat.selected ? true : false,
+        disabled: stat.selected ? false : true,
       };
     });
     setStats(newStats);
@@ -72,7 +92,7 @@ export default function Home() {
             <></>
           )}
           <Countdown
-            selectedStat={getSelectedStat}
+            selectedStat={getSelectedStat()}
             handleLockStat={handleLockStat}
             resetLockState={resetLockState}
           />
