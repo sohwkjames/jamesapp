@@ -8,6 +8,7 @@ import Card from "../ui/Card";
 import StartPauseButton from "./StartPauseButton";
 import TwoStateButton from "../ui/TwoStateButton";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import Submission from "../submission/Submission";
 
 export default function Countdown({ selectedStat, handleLockStat, reset }) {
   const { secondsRemaining, togglePause, paused, progress, resetTimer } =
@@ -18,6 +19,7 @@ export default function Countdown({ selectedStat, handleLockStat, reset }) {
 
   function handleCreateTomato() {
     tomatoService.create(cookies?.token, selectedStat);
+    // tomatoService.create(cookies?.token, { selectedStat: selectedStat });
   }
 
   function handleStartPress() {

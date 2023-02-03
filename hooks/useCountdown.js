@@ -47,6 +47,7 @@ export default function useCountdown(
       if (secondsRemaining === 0) {
         setIsComplete(true);
         setPaused(true);
+        onCountdownComplete();
         return;
       }
 

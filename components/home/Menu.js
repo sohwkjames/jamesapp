@@ -1,4 +1,3 @@
-import { STAT } from "../../constants/stats";
 import StatButton from "./StatButton";
 
 export default function Menu({ stats, handleSelectStat }) {
@@ -13,6 +12,7 @@ export default function Menu({ stats, handleSelectStat }) {
             handleSelectStat={handleSelectStat}
             locked={stat.locked}
             svgName={stat.svgName}
+            disabled={stat.disabled}
           />
         ))}
     </div>
