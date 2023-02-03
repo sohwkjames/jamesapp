@@ -11,13 +11,13 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 export default function Countdown({ selectedStat, handleLockStat, reset }) {
   const { secondsRemaining, togglePause, paused, progress, resetTimer } =
-    useCountdown(1420);
+    useCountdown(10, handleCreateTomato);
   // 1500 seconds -> 25 mins
 
   const [cookies, setCookie, removeCookie] = useCookies([""]);
 
   function handleCreateTomato() {
-    tomatoService.create(cookies?.token, { selectedStat: selectedStat });
+    tomatoService.create(cookies?.token, selectedStat);
   }
 
   function handleStartPress() {
@@ -28,12 +28,12 @@ export default function Countdown({ selectedStat, handleLockStat, reset }) {
   function handleReset() {}
 
   return (
-    <div className="">
-      <div className="flex justify-center py-8">
+    <div className="flex flex-col">
+      <div className="m-auto py-8">
         <CountdownBar secondsRemaining={secondsRemaining} progress={progress} />
         {/* Hi there */}
       </div>
-      <div className="flex justify-center">
+      <div className="m-auto ">
         <TwoStateButton
           onClick={handleStartPress}
           isPressed={paused}
@@ -44,7 +44,11 @@ export default function Countdown({ selectedStat, handleLockStat, reset }) {
 
         {/* <StartPauseButton paused={paused} togglePause={togglePause} /> */}
       </div>
-      <RestartAltIcon onClick={handleReset} className="flex-end" />
+
+      {secondsRemaining === 0 && (
+        <Submission className="py-5 m-auto" selectedStat={selectedStat} />
+      )}
+      {/* <RestartAltIcon onClick={handleReset} className="flex-end" /> */}
     </div>
   );
 }
