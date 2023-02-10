@@ -12,7 +12,7 @@ import Submission from "../submission/Submission";
 
 export default function Countdown({ selectedStat, handleLockStat, reset }) {
   const { secondsRemaining, togglePause, paused, progress, resetTimer } =
-    useCountdown(10, handleCreateTomato);
+    useCountdown(600, handleCreateTomato);
   // 1500 seconds -> 25 mins
 
   const [cookies, setCookie, removeCookie] = useCookies([""]);
