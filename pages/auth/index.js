@@ -20,6 +20,16 @@ export default function Auth() {
   const { mutate, isError, error, data } = useMutation({
     mutationFn: (formData) => loginService.login(formData),
   });
+
+  const {
+    mutate: registerMutation,
+    isError: isErrorRegister,
+    error: errorRegister,
+    data: dataRegister,
+  } = useMutation({
+    mutationFn: (formData) => loginService.register(formData),
+  });
+
   const {
     // register: loginRegister,
     handleSubmit: handleLoginSubmit,
@@ -46,6 +56,16 @@ export default function Auth() {
     });
   };
 
+  const onSubmitRegister = async (formData) => {
+    registerMutation(formData, {
+      onSuccess: (data) => {
+        console.log("in registerMutatino success, data is", data);
+        handleLoginSuccess(data);
+        router.push("/");
+      },
+    });
+  };
+
   return (
     <div className="py-20 grid gap-4 grid-cols-1 text-black">
       <div className="p-4 m-4 pb-10 bg-white rounded-md shadow-md">
@@ -64,30 +84,59 @@ export default function Auth() {
           </p>
         </div>
         {isError && <p className="py-4">Incorrect username or password.</p>}
-        <div className="my-4">
-          <form onSubmit={handleLoginSubmit(onSubmitLogin)}>
-            <div className="flex flex-col space-y-2">
-              {/* autoComplete is to prevent chrome autocomplete  */}
-              <FormInputText
-                control={loginControl}
-                name="username"
-                label="Username"
-                error={isError}
-                autoComplete="new-password"
-              />
-              <FormInputText
-                control={loginControl}
-                name="password"
-                label="Password"
-                type="password"
-                autoComplete="new-password"
-              />
-              <Button variant="outlined" type="submit">
-                {loginSelected ? "Login" : "Sign Up"}
-              </Button>
-            </div>
-          </form>
-        </div>
+        {loginSelected && (
+          <div className="my-4">
+            <form onSubmit={handleLoginSubmit(onSubmitLogin)}>
+              <div className="flex flex-col space-y-2">
+                {/* autoComplete is to prevent chrome autocomplete  */}
+                <FormInputText
+                  control={loginControl}
+                  name="username"
+                  label="Username"
+                  error={isError}
+                  autoComplete="new-password"
+                />
+                <FormInputText
+                  control={loginControl}
+                  name="password"
+                  label="Password"
+                  type="password"
+                  autoComplete="new-password"
+                />
+                <Button variant="outlined" type="submit">
+                  {loginSelected ? "Login" : "Sign Up"}
+                </Button>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {!loginSelected && (
+          <div className="my-4">
+            <form onSubmit={handleRegisterSubmit(onSubmitRegister)}>
+              <div className="flex flex-col space-y-2">
+                {/* autoComplete is to prevent chrome autocomplete  */}
+                <FormInputText
+                  control={registerControl}
+                  name="username"
+                  label="Username"
+                  error={isError}
+                  autoComplete="new-password"
+                />
+                <FormInputText
+                  control={registerControl}
+                  name="password"
+                  label="Password"
+                  type="password"
+                  autoComplete="new-password"
+                />
+                <Button variant="outlined" type="submit">
+                  {loginSelected ? "Login" : "Sign up"}
+                </Button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
     </div>
   );

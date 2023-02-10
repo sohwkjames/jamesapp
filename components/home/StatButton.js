@@ -23,7 +23,7 @@ export default function StatButton({
       className={isSelected ? selectedCss : normalCss}
       style={{
         background: isSelected ? "rgba(1,1,1,0.25)" : "none",
-        border: locked ? "border 2px white" : "",
+        border: locked ? "2px solid white" : "",
         opacity: disabled ? "0.5" : "",
       }}
     >
